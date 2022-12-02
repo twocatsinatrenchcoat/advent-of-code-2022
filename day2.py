@@ -7,7 +7,7 @@ score2 = 0
 for i in moves:
     j = ["ABC".index(i[0]),"XYZ".index(i[1])]
 
-    score1 += j[1]+1 + (4-(j[0]-j[1]))%3*3
+    score1 += j[1]+1 + (1-(j[0]-j[1]))%3*3
     score2 += j[1]*3 + (j[0]+j[1]-1)%3+1
 
 print("Part 1:",score1)
