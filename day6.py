@@ -9,7 +9,10 @@ def findNUnique(n,string):
             for j in range(i+1,n):
                 if attempt[i]==attempt[j]:
                     valid = False
-                    marker += max(i,1)
+                    marker += i+1
+                    break
+            if not valid:
+                break
         if valid:
             return marker
 
