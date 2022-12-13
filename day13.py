@@ -46,4 +46,4 @@ for i in pairs:
 
 packets = sort(packets)
 
-print((packets.index([[2]])+1)*(packets.index([[6]])+1))
+print("Part 2:",(packets.index([[2]])+1)*(packets.index([[6]])+1))
