@@ -1,0 +1,57 @@
+inpt = open("input.txt","r").read()
+grid,route = inpt.split("\n\n")
+grid = [[x for x in y] for y in grid.split("\n")]
+out = [y.copy() for y in grid]
+
+location = grid[0].index(".") + 0j
+facing = 1 + 0j
+facings = [1+0j,0+1j,-1+0j,0-1j]
+
+def getCell(c):
+    x, y = int(c.real),int(c.imag)
+    if y >= len(grid) or y < 0:
+        return " "
+    if x >= len(grid[y]) or x < 0:
+        return " "
+    return grid[y][x]
+
+def drawPath():
+    out[int(location.imag)][int(location.real)] = ">v<^"[facings.index(facing)]
+
+insts = ["x"]
+for i in route.strip():
+    if i.isdigit() and type(insts[-1])==int:
+        insts[-1] = insts[-1] * 10 + int(i)
+    elif i.isdigit():
+        insts.append(int(i))
+    else:
+        insts.append(i)
+insts.pop(0)
+
+## Part 1
+#drawPath()
+for i in insts:
+    if type(i)==int:
+        for j in range(i):
+            test = getCell(location+facing)
+            if test == " ":
+                warp = location
+                while getCell(warp-facing) != " ":
+                    warp -= facing
+                if getCell(warp) != "#":
+                    location = warp
+                else:
+                    break
+                #drawPath()
+            elif test != "#":
+                location += facing
+                #drawPath()
+            else:
+                break
+    elif i=="R":
+        facing *= 1j
+    else:
+        facing *= -1j
+    #drawPath()
+        
+print("Part 1:",int((location.imag+1)*1000+(location.real+1)*4+facings.index(facing)))
